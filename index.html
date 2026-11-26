@@ -7,7 +7,7 @@
 <style>
 _{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#0F0F1A;color:#fff;min-height:100vh}
-header{background:#1A1A2E;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+header{background:#1A1A2E;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;flex-wrap:wrap;gap:10px}
 .logo{font-size:22px;font-weight:900}
 .logo span{color:#FFD166}
 .header-stats{display:flex;gap:8px;flex-wrap:wrap}
@@ -20,17 +20,17 @@ header{background:#1A1A2E;padding:14px 20px;display:flex;justify-content:space-b
 .modes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
 .mode-btn{background:#1A1A2E;border:2px solid #333;color:#fff;padding:14px 8px;border-radius:14px;cursor:pointer;font-weight:800;font-size:13px}
 .mode-btn.active{background:#FFD166;color:#000;border-color:#FFD166}
-.game-card{background:#1A1A2E;border-radius:20px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,0.3)}
+.game-card{background:#1A1A2E;border-radius:20px;padding:20px}
 .top-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .level-badge{background:#FFD166;color:#000;padding:7px 14px;border-radius:20px;font-weight:900;font-size:13px}
 .category-badge{background:#A78BFA;color:#000;padding:7px 14px;border-radius:20px;font-weight:900;font-size:13px}
 .timer-bar{height:10px;background:#333;border-radius:20px;overflow:hidden;margin:14px 0}
-.timer-fill{height:100%;background:#25D366;width:100%;transition:width 1s linear}
-.scrambled{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.timer-fill{height:100%;background:#25D366;width:100%}
+.scrambled{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0;min-height:60px}
 .letter-box{width:52px;height:56px;background:#2D2D44;border:2px solid #A78BFA;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;cursor:pointer}
 .letter-box.used{opacity:0.25;transform:scale(0.9)}
 .answer-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;min-height:60px;margin:12px 0}
-.answer-slot{width:52px;height:56px;background:#fff;color:#111;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900}
+.answer-slot{width:52px;height:56px;background:#fff;color:#111;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;cursor:pointer}
 .answer-slot.empty{border:2px dashed #555;background:transparent;color:#fff}
 .hint-box{background:#2D2D44;padding:14px;border-radius:12px;text-align:center;line-height:1.6;margin:12px 0}
 .hint-box b{color:#FFD166}
@@ -45,14 +45,9 @@ header{background:#1A1A2E;padding:14px 20px;display:flex;justify-content:space-b
 .score-board div{background:#1A1A2E;padding:14px;border-radius:14px;text-align:center}
 .score-board b{font-size:22px;display:block;color:#FFD166}
 .score-board span{font-size:12px;color:#aaa}
-.keyboard{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
-.key-btn{background:#2D2D44;color:#fff;border:none;padding:14px 0;border-radius:12px;font-weight:900;font-size:18px;cursor:pointer}
-.key-btn.used{opacity:0.3}
 .leaderboard{background:#1A1A2E;border-radius:16px;padding:18px;margin-top:16px}
-.leaderboard h3{margin-bottom:10px}
 .leader-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #333;font-size:14px}
 .howto{background:#1A1A2E;border-radius:16px;padding:18px;margin-top:16px;line-height:1.8;color:#ccc}
-.howto h3{color:#fff}
 footer{text-align:center;padding:20px;color:#777;font-size:13px;line-height:1.7}
 .socials{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:10px 0}
 .socials a{background:#fff;color:#000;padding:7px 12px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none}
@@ -82,14 +77,14 @@ footer{text-align:center;padding:20px;color:#777;font-size:13px;line-height:1.7}
 <div><b id="bestBox">0</b><span>BEST SCORE</span></div>
 </div>
 <div class="modes">
-<button class="mode-btn active" type="button" data-mode="All">🎲 All Words</button>
-<button class="mode-btn" type="button" data-mode="Nigeria">🇳🇬 Nigeria</button>
-<button class="mode-btn" type="button" data-mode="Food">🍲 Food</button>
-<button class="mode-btn" type="button" data-mode="Fashion">👗 Fashion</button>
-<button class="mode-btn" type="button" data-mode="Football">⚽ Football</button>
-<button class="mode-btn" type="button" data-mode="Animals">🦁 Animals</button>
-<button class="mode-btn" type="button" data-mode="School">📚 School</button>
-<button class="mode-btn" type="button" data-mode="Love">❤️ Love</button>
+<button class="mode-btn active" onclick="setMode('All',this)">🎲 All Words</button>
+<button class="mode-btn" onclick="setMode('Nigeria',this)">🇳🇬 Nigeria</button>
+<button class="mode-btn" onclick="setMode('Food',this)">🍲 Food</button>
+<button class="mode-btn" onclick="setMode('Fashion',this)">👗 Fashion</button>
+<button class="mode-btn" onclick="setMode('Football',this)">⚽ Football</button>
+<button class="mode-btn" onclick="setMode('Animals',this)">🦁 Animals</button>
+<button class="mode-btn" onclick="setMode('School',this)">📚 School</button>
+<button class="mode-btn" onclick="setMode('Love',this)">❤️ Love</button>
 </div>
 <div class="game-card">
 <div class="top-row">
@@ -100,31 +95,30 @@ footer{text-align:center;padding:20px;color:#777;font-size:13px;line-height:1.7}
 <div class="timer-bar"><div class="timer-fill" id="timerFill"></div></div>
 <p style="text-align:center;color:#aaa;">Tap letters to form the correct word:</p>
 <div class="scrambled" id="scrambledBox"></div>
-<p style="text-align:center;color:#aaa;">Your Answer:</p>
+<p style="text-align:center;color:#aaa;">Your Answer - tap a letter to remove am:</p>
 <div class="answer-row" id="answerBox"></div>
 <div class="hint-box" id="hintBox">Hint go show here</div>
 <div class="msg" id="msgBox"></div>
 <div class="controls">
-<button class="btn-green" id="checkBtn" type="button">Check Answer ✅</button>
-<button class="btn-gold" id="hintBtn" type="button">Hint 💡 (-10)</button>
-<button class="btn-grey" id="shuffleBtn" type="button">Shuffle 🔀</button>
-<button class="btn-purple" id="clearBtn" type="button">Clear ❌</button>
+<button class="btn-green" onclick="checkAnswer()">Check Answer ✅</button>
+<button class="btn-gold" onclick="useHint()">Hint 💡 (-10)</button>
+<button class="btn-grey" onclick="shuffleCurrent()">Shuffle 🔀</button>
+<button class="btn-purple" onclick="clearAnswer()">Clear ❌</button>
 </div>
-<div class="keyboard" id="keyboardBox"></div>
 <div style="text-align:center;margin-top:14px;">
-<button class="btn-green" id="nextBtn" type="button" style="padding:13px 26px;border:none;border-radius:20px;font-weight:900;cursor:pointer;">Next Word ➡️</button>
-<button class="btn-grey" id="restartBtn" type="button" style="padding:13px 20px;border:none;border-radius:20px;font-weight:900;cursor:pointer;">Restart Game 🔄</button>
+<button class="btn-green" onclick="nextWord()" style="padding:13px 26px;border:none;border-radius:20px;font-weight:900;cursor:pointer;">Next Word ➡️</button>
+<button class="btn-grey" onclick="restartGame()" style="padding:13px 20px;border:none;border-radius:20px;font-weight:900;cursor:pointer;">Restart Game 🔄</button>
 </div>
 </div>
 <div class="leaderboard">
 <h3>🏆 Leaderboard - Top Players</h3>
 <div id="leaderList"></div>
-<p style="color:#aaa;font-size:13px;margin-top:10px;">Beat 500 points to enter leaderboard! Share your score for WhatsApp.</p>
-<button class="share-btn" id="shareBtn" type="button">Share My Score on WhatsApp 💬</button>
+<p style="color:#aaa;font-size:13px;margin-top:10px;">Beat 500 points to enter leaderboard!</p>
+<button class="share-btn" onclick="shareScore()">Share My Score on WhatsApp 💬</button>
 </div>
 <div class="howto">
 <h3>📖 How To Play</h3>
-<p>1. Look at scrambled letters.<br>2. Tap letters or keyboard to arrange correct word.<br>3. Press Check Answer. Correct = +100 points, Wrong = -1 life.<br>4. Use Hint if e hard you. Hint go reveal one letter.<br>5. Beat timer - faster = bonus points.<br>6. Lose all 3 lives = Game Over, but you fit restart.</p>
+<p>1. Look at scrambled letters.<br>2. Tap letters to arrange correct word.<br>3. Press Check Answer. Correct = +100 points, Wrong = -1 life.<br>4. Use Hint if e hard you.<br>5. Beat timer - faster = bonus points.<br>6. Lose all 3 lives = Game Over, press Restart.</p>
 </div>
 </div>
 <footer>
@@ -141,8 +135,7 @@ footer{text-align:center;padding:20px;color:#777;font-size:13px;line-height:1.7}
 </footer>
 <div id="toast">Correct! 🎉</div>
 <script>
-var D = window["doc" + "ument"];
-var W = window;
+function $(id){ return http://document.getElementById(id); }
 var allWords = [
 ["LAGOS","Nigeria","Biggest city in Nigeria, where Ussy dey."],
 ["ABUJA","Nigeria","Capital of Nigeria."],
@@ -174,7 +167,6 @@ var allWords = [
 ["EXAM","School","Test wey student dey write."],
 ["LOVE","Love","Feeling wey make heart beat fast."],
 ["HEART","Love","Organ wey dey pump blood & love."],
-["KISS","Love","Peck for cheek or lips."],
 ["FRIEND","Love","Person wey dey always for you."],
 ["MANGO","Food","Sweet yellow fruit."],
 ["ORANGE","Food","Fruit wey get vitamin C."],
@@ -184,7 +176,6 @@ var allWords = [
 ["PIANO","School","Instrument with black & white keys."],
 ["DANCE","Love","Move body to music."],
 ["MUSIC","Love","Song wey dey make you happy."],
-["LAGOS","Nigeria","City of hustle & lights."],
 ["ENUGU","Nigeria","Coal city, East side."],
 ["KANO","Nigeria","Big city for North."],
 ["IBADAN","Nigeria","Largest city by land for Naija."],
@@ -225,7 +216,6 @@ var allWords = [
 ["NAIRA","Nigeria","Currency of Nigeria."],
 ["MARKET","Nigeria","Place where dem dey sell."],
 ["CHURCH","Nigeria","Place where dem dey pray Sunday."],
-["MOSQUE","Nigeria","Place where Muslims dey pray."],
 ["RAIN","Nigeria","Water wey dey fall from sky."],
 ["SUN","Nigeria","Wetin dey shine for day."],
 ["MOON","Nigeria","Wetin dey shine for night."],
@@ -233,25 +223,19 @@ var allWords = [
 ["OCEAN","Nigeria","Big water, like Atlantic."],
 ["BEACH","Nigeria","Sandy place near ocean."],
 ["FLOWER","Love","Fine plant wey smell nice."],
-["GARDEN","Love","Place where flower dey grow."],
-["RIVER","Nigeria","Water wey dey flow."],
-["BRIDGE","Nigeria","Wetin cross river."],
 ["HOUSE","Nigeria","Place where you live."],
 ["CAR","Nigeria","Wetin you drive."],
 ["PHONE","Nigeria","Wetin you use call & chat."],
 ["COMPUTER","School","Machine wey you use browse."],
-["INTERNET","School","Wetin connect whole world."],
 ["DOCTOR","School","Person wey dey treat sick people."],
-["NURSE","School","Person wey dey help doctor."],
-["FARMER","Nigeria","Person wey dey plant food."],
-["SOLDIER","Nigeria","Person wey dey protect country."]
+["FARMER","Nigeria","Person wey dey plant food."]
 ];
 var currentMode = "All";
 var filtered = [];
-var currentIdx = 0;
 var currentWord = "";
 var currentHint = "";
 var currentCat = "";
+var currentScrambled = "";
 var userAnswer = [];
 var score = 0;
 var level = 1;
@@ -261,193 +245,202 @@ var lives = 3;
 var timeLeft = 60;
 var timerId = null;
 var gameOver = false;
-function getEl(id) { return D["getElementById"](id); }
-function showToast(msg) {
-  var t = getEl("toast");
-  t["textContent"] = msg;
-  t["style"]["display"] = "block";
-  W["setTimeout"](function() { t["style"]["display"] = "none"; }, 2000);
+function showToast(msg){
+  var t = $("toast");
+  http://t.textContent = msg;
+  http://t.style.display = "block";
+  setTimeout(function(){ http://t.style.display = "none"; }, 2000);
 }
-function shuffleStr(s) {
-  var arr = s["split"]("");
-  for (var i = arr["length"] - 1; i > 0; i--) {
-    var j = Math["floor"](Math["random"]() _ (i + 1));
+function shuffleStr(s){
+  var arr = http://s.split("");
+  for(var i = http://arr.length - 1; i > 0; i--){
+    var j = http://Math.floor(Math.random() _ (i + 1));
     var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
   }
-  var out = arr["join"]("");
-  if (out === s) { return shuffleStr(s); }
-  return out;
+  return http://arr.join("");
 }
-function filterWords() {
+function filterWords(){
   filtered = [];
-  for (var i = 0; i < allWords["length"]; i++) {
-    if (currentMode === "All" || allWords[i][1] === currentMode) { filtered["push"](allWords[i]); }
+  for(var i = 0; i < http://allWords.length; i++){
+    if(currentMode === "All" || allWords[i][1] === currentMode){ http://filtered.push(allWords[i]); }
   }
 }
-function startTimer() {
-  if (timerId) { W["clearInterval"](timerId); }
+function startTimer(){
+  if(timerId){ clearInterval(timerId); }
   timeLeft = 60;
   updateTimerUI();
-  timerId = W["setInterval"](function() {
+  timerId = setInterval(function(){
     timeLeft = timeLeft - 1;
     updateTimerUI();
-    if (timeLeft <= 0) {
-      W["clearInterval"](timerId);
+    if(timeLeft <= 0){
+      clearInterval(timerId);
       lives = lives - 1;
       streak = 0;
       updateUI();
-      getEl("msgBox")["textContent"] = "⏰ Time Up! The word was " + currentWord;
-      getEl("msgBox")["style"]["color"] = "#FF6B6B";
-      if (lives <= 0) { endGame(); } else { W["setTimeout"](function() { nextWord(); }, 1800); }
+      $("msgBox").textContent = "⏰ Time Up! The word was " + currentWord;
+      $("msgBox").style.color = "#FF6B6B";
+      if(lives <= 0){ endGame(); }
+      else{ setTimeout(function(){ nextWord(); }, 1800); }
     }
   }, 1000);
 }
-function updateTimerUI() {
-  getEl("timeBadge")["textContent"] = "⏰ " + timeLeft + "s";
+function updateTimerUI(){
+  $("timeBadge").textContent = "⏰ " + timeLeft + "s";
   var pct = (timeLeft / 60) _ 100;
-  getEl("timerFill")["style"]["width"] = pct + "%";
-  if (timeLeft < 15) { getEl("timerFill")["style"]["background"] = "#FF6B6B"; } else { getEl("timerFill")["style"]["background"] = "#25D366"; }
+  $("timerFill").style.width = pct + "%";
+  $("timerFill").style.background = timeLeft < 15 ? "#FF6B6B" : "#25D366";
 }
-function updateUI() {
-  getEl("scoreTop")["textContent"] = score;
-  getEl("streakTop")["textContent"] = streak;
-  getEl("livesTop")["textContent"] = lives;
-  getEl("scoreBox")["textContent"] = score;
-  getEl("levelBox")["textContent"] = level;
-  getEl("streakBox")["textContent"] = streak;
-  if (score > best) { best = score; }
-  getEl("bestBox")["textContent"] = best;
+function updateUI(){
+  $("scoreTop").textContent = score;
+  $("streakTop").textContent = streak;
+  $("livesTop").textContent = lives;
+  $("scoreBox").textContent = score;
+  $("levelBox").textContent = level;
+  $("streakBox").textContent = streak;
+  if(score > best){ best = score; }
+  $("bestBox").textContent = best;
 }
-function renderWord() {
-  var scrambled = shuffleStr(currentWord);
-  var box = getEl("scrambledBox");
-  box["innerHTML"] = "";
+function renderWord(){
+  var box = $("scrambledBox");
+  http://box.innerHTML = "";
   userAnswer = [];
-  for (var i = 0; i < scrambled["length"]; i++) {
-    var d = D["createElement"]("div");
-    d["className"] = "letter-box";
-    d["textContent"] = scrambled[i];
-    d["setAttribute"]("data-letter", scrambled[i]);
-    (function(el) {
-      el["addEventListener"]("click", function() {
-        if (el["classList"]["contains"]("used")) { return; }
-        if (userAnswer["length"] >= currentWord["length"]) { return; }
-        el["classList"]["add"]("used");
-        userAnswer["push"](el["getAttribute"]("data-letter"));
+  for(var i = 0; i < http://currentScrambled.length; i++){
+    var d = http://document.createElement("div");
+    http://d.className = "letter-box";
+    http://d.textContent = currentScrambled[i];
+    http://d.setAttribute("data-letter", currentScrambled[i]);
+    http://d.onclick = (function(el){
+      return function(){
+        if(el.className.indexOf("used") !== -1){ return; }
+        if(userAnswer.length >= http://currentWord.length){ return; }
+        http://el.className = "letter-box used";
+        http://userAnswer.push(el.getAttribute("data-letter"));
         renderAnswer();
-      });
+      };
     })(d);
-    box["appendChild"](d);
+    http://box.appendChild(d);
   }
   renderAnswer();
-  getEl("hintBox")["innerHTML"] = "💡 <b>Hint:</b> " + currentHint + "<br>Category: " + currentCat + " | Letters: " + currentWord["length"];
-  getEl("catBadge")["textContent"] = currentCat;
-  getEl("levelBadge")["textContent"] = "LEVEL " + level;
-  getEl("msgBox")["textContent"] = "";
-  renderKeyboard();
+  $("hintBox").innerHTML = "💡 <b>Hint:</b> " + currentHint + "<br>Category: " + currentCat + " | Letters: " + http://currentWord.length;
+  $("catBadge").textContent = currentCat;
+  $("levelBadge").textContent = "LEVEL " + level;
+  $("msgBox").textContent = "";
 }
-function renderAnswer() {
-  var box = getEl("answerBox");
-  box["innerHTML"] = "";
-  for (var i = 0; i < currentWord["length"]; i++) {
-    var s = D["createElement"]("div");
-    s["className"] = "answer-slot";
-    if (i < userAnswer["length"]) { s["textContent"] = userAnswer[i]; } else { s["className"] = "answer-slot empty"; s["textContent"] = "?"; }
-    (function(idx) {
-      s["addEventListener"]("click", function() {
-        if (idx < userAnswer["length"]) {
+function renderAnswer(){
+  var box = $("answerBox");
+  http://box.innerHTML = "";
+  for(var i = 0; i < http://currentWord.length; i++){
+    var s = http://document.createElement("div");
+    if(i < http://userAnswer.length){
+      http://s.className = "answer-slot";
+      http://s.textContent = userAnswer[i];
+    } else {
+      http://s.className = "answer-slot empty";
+      http://s.textContent = "?";
+    }
+    http://s.onclick = (function(idx){
+      return function(){
+        if(idx < http://userAnswer.length){
           var letter = userAnswer[idx];
-          userAnswer["splice"](idx, 1);
-          var letters = getEl("scrambledBox")["querySelectorAll"](".letter-box");
-          for (var k = 0; k < letters["length"]; k++) {
-            if (letters[k]["textContent"] === letter && letters[k]["classList"]["contains"]("used")) { letters[k]["classList"]["remove"]("used"); break; }
+          http://userAnswer.splice(idx, 1);
+          var letters = $("scrambledBox").querySelectorAll(".letter-box");
+          for(var k = 0; k < http://letters.length; k++){
+            if(letters[k].textContent === letter && letters[k].className.indexOf("used") !== -1){
+              letters[k].className = "letter-box";
+              break;
+            }
           }
           renderAnswer();
         }
-      });
+      };
     })(i);
-    box["appendChild"](s);
+    http://box.appendChild(s);
   }
 }
-function renderKeyboard() {
-  var kb = getEl("keyboardBox");
-  kb["innerHTML"] = "";
-  var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  for (var i = 0; i < letters["length"]; i++) {
-    var b = D["createElement"]("button");
-    b["className"] = "key-btn";
-    b["textContent"] = letters[i];
-    b["type"] = "button";
-    (function(letter, el) {
-      el["addEventListener"]("click", function() {
-        if (userAnswer["length"] >= currentWord["length"]) { return; }
-        userAnswer["push"](letter);
-        renderAnswer();
-      });
-    })(letters[i], b);
-    kb["appendChild"](b);
-  }
-}
-function nextWord() {
-  if (gameOver) { return; }
-  currentIdx = Math["floor"](Math["random"]() _ filtered["length"]);
-  var item = filtered[currentIdx];
+function nextWord(){
+  if(gameOver){ return; }
+  var idx = http://Math.floor(Math.random() _ http://filtered.length);
+  var item = filtered[idx];
   currentWord = item[0];
   currentCat = item[1];
   currentHint = item[2];
+  currentScrambled = shuffleStr(currentWord);
+  if(currentScrambled === currentWord){ currentScrambled = shuffleStr(currentWord); }
   renderWord();
   startTimer();
 }
-function checkAnswer() {
-  if (gameOver) { return; }
-  var ans = userAnswer["join"]("");
-  if (ans["length"] !== currentWord["length"]) { getEl("msgBox")["textContent"] = "⚠️ Complete the word first boss!"; getEl("msgBox")["style"]["color"] = "#FFD166"; return; }
-  if (ans === currentWord) {
+function shuffleCurrent(){
+  currentScrambled = shuffleStr(currentWord);
+  renderWord();
+}
+function clearAnswer(){
+  renderWord();
+  $("msgBox").textContent = "";
+}
+function checkAnswer(){
+  if(gameOver){ return; }
+  var ans = http://userAnswer.join("");
+  if(ans.length !== http://currentWord.length){
+    $("msgBox").textContent = "⚠️ Complete the word first boss!";
+    $("msgBox").style.color = "#FFD166";
+    return;
+  }
+  if(ans === currentWord){
     var bonus = timeLeft;
     score = score + 100 + bonus;
     streak = streak + 1;
-    if (streak % 5 === 0) { level = level + 1; showToast("Level Up! You don reach Level " + level + " 🎉"); }
-    getEl("msgBox")["textContent"] = "🎉 CORRECT! +" + (100 + bonus) + " points. You sabi!";
-    getEl("msgBox")["style"]["color"] = "#25D366";
-    W["clearInterval"](timerId);
+    if(streak % 5 === 0){
+      level = level + 1;
+      showToast("Level Up! You don reach Level " + level + " 🎉");
+    }
+    $("msgBox").textContent = "🎉 CORRECT! +" + (100 + bonus) + " points. You sabi!";
+    $("msgBox").style.color = "#25D366";
+    clearInterval(timerId);
     updateUI();
     updateLeaderboard();
-    W["setTimeout"](function() { nextWord(); }, 1200);
+    setTimeout(function(){ nextWord(); }, 1200);
   } else {
     lives = lives - 1;
     streak = 0;
-    getEl("msgBox")["textContent"] = "❌ Wrong! Try again. The word no be " + ans;
-    getEl("msgBox")["style"]["color"] = "#FF6B6B";
+    $("msgBox").textContent = "❌ Wrong! Try again. The word no be " + ans;
+    $("msgBox").style.color = "#FF6B6B";
     updateUI();
-    if (lives <= 0) { endGame(); }
+    if(lives <= 0){ endGame(); }
   }
 }
-function endGame() {
+function endGame(){
   gameOver = true;
-  W["clearInterval"](timerId);
-  getEl("msgBox")["textContent"] = "💔 GAME OVER! Your score: " + score + ". Press Restart to play again!";
-  getEl("msgBox")["style"]["color"] = "#FF6B6B";
+  clearInterval(timerId);
+  $("msgBox").textContent = "💔 GAME OVER! Your score: " + score + ". Press Restart to play again!";
+  $("msgBox").style.color = "#FF6B6B";
   showToast("Game Over! Score: " + score);
   updateLeaderboard();
 }
-function restartGame() {
+function restartGame(){
   score = 0; level = 1; streak = 0; lives = 3; gameOver = false;
   updateUI();
   filterWords();
   nextWord();
 }
-function useHint() {
-  if (score < 10 && userAnswer["length"] === 0) { showToast("You need 10 points for hint!"); return; }
-  if (userAnswer["length"] >= currentWord["length"]) { return; }
-  var nextLetter = currentWord[userAnswer["length"]];
-  userAnswer["push"](nextLetter);
-  score = Math["max"](0, score - 10);
+function useHint(){
+  if(userAnswer.length >= http://currentWord.length){ return; }
+  var nextLetter = currentWord[userAnswer.length];
+  http://userAnswer.push(nextLetter);
+  score = http://Math.max(0, score - 10);
   updateUI();
   renderAnswer();
-  getEl("msgBox")["textContent"] = "💡 Hint used! Letter revealed: " + nextLetter;
-  getEl("msgBox")["style"]["color"] = "#FFD166";
+  $("msgBox").textContent = "💡 Hint used! Letter revealed: " + nextLetter;
+  $("msgBox").style.color = "#FFD166";
 }
-function updateLeaderboard() {
+function setMode(mode, btn){
+  var all = http://document.querySelectorAll(".mode-btn");
+  for(var i = 0; i < http://all.length; i++){ all[i].classList.remove("active"); }
+  http://btn.classList.add("active");
+  currentMode = mode;
+  restartGame();
+  showToast("Mode changed to " + mode);
+}
+function updateLeaderboard(){
   var leaders = [
     ["👑 Victory - Lagos", 2500],
     ["🥈 Amara - Lekki", 1800],
@@ -455,32 +448,16 @@ function updateLeaderboard() {
     ["4. Chiamaka - Ikeja", 1200],
     ["5. YOU - Player", score]
   ];
-  leaders["sort"](function(a, b) { return b[1] - a[1]; });
+  http://leaders.sort(function(a, b){ return b[1] - a[1]; });
   var html = "";
-  for (var i = 0; i < leaders["length"]; i++) {
-    html = html + "<div class='leader-row'><span>" + leaders[i][0] + "</span><b>" + leaders[i][1] + " pts</b></div>";
+  for(var i = 0; i < http://leaders.length; i++){
+    html += "<div class='leader-row'><span>" + leaders[i][0] + "</span><b>" + leaders[i][1] + " pts</b></div>";
   }
-  getEl("leaderList")["innerHTML"] = html;
+  $("leaderList").innerHTML = html;
 }
-getEl("checkBtn")["addEventListener"]("click", checkAnswer);
-getEl("nextBtn")["addEventListener"]("click", function() { if (!gameOver) { nextWord(); } });
-getEl("restartBtn")["addEventListener"]("click", restartGame);
-getEl("hintBtn")["addEventListener"]("click", useHint);
-getEl("shuffleBtn")["addEventListener"]("click", function() { renderWord(); });
-getEl("clearBtn")["addEventListener"]("click", function() { renderWord(); getEl("msgBox")["textContent"] = ""; });
-getEl("shareBtn")["addEventListener"]("click", function() {
-  var msg = "I just scored " + score + " points for Ussy Word Puzzle! 🧩 Can you beat me? Play now! Level " + level + " - Streak " + streak;
-  W["open"]("https://wa.me/2349124203270?text=" + encodeURIComponent(msg), "_blank");
-});
-var modeBtns = D["querySelectorAll"](".mode-btn");
-for (var m = 0; m < modeBtns["length"]; m++) {
-  modeBtns[m]["addEventListener"]("click", function() {
-    for (var n = 0; n < modeBtns["length"]; n++) { modeBtns[n]["classList"]["remove"]("active"); }
-    this["classList"]["add"]("active");
-    currentMode = this["getAttribute"]("data-mode");
-    restartGame();
-    showToast("Mode changed to " + currentMode);
-  });
+function shareScore(){
+  var msg = "I just scored " + score + " points for Ussy Word Puzzle! 🧩 Can you beat me? Level " + level + " - Streak " + streak;
+  http://window.open("https://wa.me/2349124203270?text=" + encodeURIComponent(msg), "_blank");
 }
 filterWords();
 updateUI();
